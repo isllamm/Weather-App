@@ -9,7 +9,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface Repo {
     suspend fun getCurrentWeather(city: String): Resource<CurrentWeatherResponse>
-    suspend fun get5DayForecast(city: String): Resource<ForecastResponse>
+    suspend fun get5DaysForecast(city: String): ForecastResponse
     suspend fun getCityLocal(): Flow<List<City>>
     suspend fun insertCityToLocal(city: City)
 }

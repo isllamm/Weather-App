@@ -12,8 +12,6 @@ import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
-import androidx.compose.foundation.layout.wrapContentHeight
-import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.CircularProgressIndicator
@@ -34,28 +32,23 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import androidx.navigation.NavController
-import androidx.navigation.compose.rememberNavController
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
 import com.weatherapp.core.Resource
 import com.weatherapp.core.ToastUtils
+import com.weatherapp.core.roundDoubleToIntMin
 import com.weatherapp.core.ui.theme.AppFont
 import com.weatherapp.core.ui.theme.DarkBlue
 import com.weatherapp.core.ui.theme.LightBlue
 import com.weatherapp.core.ui.theme.backgroundColor
 import com.weatherapp.domain.models.CurrentWeatherResponse
-import kotlin.math.ceil
-import kotlin.math.floor
 import kotlin.math.roundToInt
 
 @Composable
 fun WeatherScreen(
-    navController: NavController = rememberNavController(),
     viewModel: WeatherViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
@@ -170,10 +163,4 @@ fun WeatherScreen(
         if (isLoading) CircularProgressIndicator(modifier = Modifier.size(80.dp))
     }
 
-}
-fun roundDoubleToIntMin(doubleValue: Double): Int {
-    return floor(doubleValue).toInt()
-}
-fun roundDoubleToIntMax(doubleValue: Double): Int {
-    return ceil(doubleValue).toInt()
 }

@@ -37,8 +37,6 @@ constructor(
 
     init {
         getLocalCity()
-        getCurrentWeather(cityNameFromLocal.ifEmpty { "Cairo" })
-
     }
 
     private fun getLocalCity() = viewModelScope.launch {
@@ -46,9 +44,8 @@ constructor(
             if (it.isNotEmpty()) {
                 cityNameFromLocal = it.last().name
             }
+            getCurrentWeather(cityNameFromLocal.ifEmpty { "Cairo" })
         }
-    }.invokeOnCompletion {
-        getCurrentWeather(cityNameFromLocal.ifEmpty { "Cairo" })
     }
 
     fun insertCity(city: City) = viewModelScope.launch {
