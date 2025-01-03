@@ -40,7 +40,7 @@ constructor(
         getLocalCity()
     }
 
-    private fun getLocalCity() = viewModelScope.launch {
+    fun getLocalCity() = viewModelScope.launch {
         _weatherFlow.emit(Resource.Loading())
         getLocalCityUseCase().collect {
             if (it.isNotEmpty()) {
@@ -50,7 +50,7 @@ constructor(
         }
     }
 
-    private fun insertCity(city: City) = viewModelScope.launch {
+    fun insertCity(city: City) = viewModelScope.launch {
         try {
             insertLocalCityUseCase(city)
         } catch (e: Exception) {
@@ -60,7 +60,7 @@ constructor(
         getLocalCity()
     }
 
-    private fun getCurrentWeather(cityName: String) = viewModelScope.launch {
+    fun getCurrentWeather(cityName: String) = viewModelScope.launch {
         _weatherFlow.emit(Resource.Loading())
         _weatherFlow.emit(weatherUseCase(city = cityName))
     }
@@ -74,3 +74,5 @@ constructor(
         }
     }
 }
+
+

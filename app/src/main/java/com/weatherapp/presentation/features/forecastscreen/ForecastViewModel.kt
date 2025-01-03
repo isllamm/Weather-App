@@ -33,7 +33,7 @@ class ForecastViewModel @Inject constructor(
         }
     }
 
-    private fun fetchForecast(city: String) {
+    fun fetchForecast(city: String) {
         viewModelScope.launch {
             _state.value = ForecastState.Loading
             try {
@@ -53,7 +53,7 @@ class ForecastViewModel @Inject constructor(
         getLocalCity()
     }
 
-    private fun getLocalCity() = viewModelScope.launch {
+    fun getLocalCity() = viewModelScope.launch {
         getLocalCityUseCase().collect {
             if (it.isNotEmpty()) {
                 cityNameFromLocal = it.last().name

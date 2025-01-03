@@ -68,6 +68,8 @@ dependencies {
     // Hilt
     implementation (libs.hilt.android)
     implementation (libs.androidx.hilt.navigation.compose)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.junit.jupiter)
     kapt (libs.hilt.android.compiler)
 
     // Logging Interceptor
@@ -93,5 +95,18 @@ dependencies {
     androidTestImplementation(libs.androidx.ui.test.junit4)
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
+
+
+    // Testing Dependencies
+    testImplementation(libs.junit)
+    testImplementation(libs.kotlin.test)
+    testImplementation(libs.kotlin.test.junit)
+    testImplementation(libs.kotlinx.coroutines.test)
+    testImplementation(libs.turbine)
+    testImplementation(libs.androidx.core)
+    testImplementation(libs.mockk)
+    testImplementation(libs.androidx.junit.v115)
+    testImplementation(libs.androidx.core.testing)
+
 
 }
