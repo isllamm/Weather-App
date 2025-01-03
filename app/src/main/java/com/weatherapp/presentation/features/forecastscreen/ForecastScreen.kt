@@ -12,17 +12,12 @@ import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
@@ -63,17 +58,15 @@ fun ForecastScreen(
     val state by viewModel.state.collectAsState()
     var isLoading by remember { mutableStateOf(false) }
     var forecast by remember { mutableStateOf(ForecastResponse()) }
-    // Trigger LoadForecast intent
-    LaunchedEffect(Unit) {
-        viewModel.processIntent(ForecastIntent.LoadForecast("Cairo"))
-    }
+
+
+    // Observe weather Response
     when (state) {
         is ForecastState.Loading -> isLoading = true
         is ForecastState.Success -> {
             isLoading = false
             forecast = (state as ForecastState.Success).forecast
         }
-
         is ForecastState.Error -> {
             val errorMessage = (state as ForecastState.Error).message
             isLoading = false
@@ -101,15 +94,10 @@ fun ForecastScreen(
                         horizontalArrangement = Arrangement.Center
                     ) {
                         Text(
-                            text = viewModel.cityNameFromLocal.ifEmpty { "Cairo" },
+                            text = "Forecast",
                             fontSize = 20.sp,
                             fontFamily = AppFont.MontserratFont,
                             fontWeight = FontWeight.Bold,
-                        )
-                        Spacer(modifier = Modifier.width(6.dp))
-                        Icon(
-                            imageVector = Icons.Default.LocationOn,
-                            contentDescription = "Location"
                         )
                     }
                     Spacer(modifier = Modifier.height(16.dp))

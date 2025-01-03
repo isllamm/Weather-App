@@ -1,6 +1,7 @@
 package com.weatherapp.presentation.features.weatherscreen
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -45,6 +46,7 @@ import com.weatherapp.core.ui.theme.DarkBlue
 import com.weatherapp.core.ui.theme.LightBlue
 import com.weatherapp.core.ui.theme.backgroundColor
 import com.weatherapp.domain.models.CurrentWeatherResponse
+import com.weatherapp.presentation.features.addcitybottomsheet.AddCityBottomSheet
 import kotlin.math.roundToInt
 
 @Composable
@@ -53,8 +55,24 @@ fun WeatherScreen(
 ) {
     val context = LocalContext.current
     var isLoading by remember { mutableStateOf(false) }
+    var showSheet by remember { mutableStateOf(false) }
     var weather by remember { mutableStateOf(CurrentWeatherResponse()) }
     val weatherState by viewModel.weatherFlow.collectAsState()
+
+
+    if (showSheet) {
+        AddCityBottomSheet(
+            onDismiss = {
+                showSheet = false
+            },
+            onApply = { cityName ->
+                if (cityName.isNotEmpty()) {
+                    viewModel.isCityAvailable(cityName)
+                    showSheet = false
+                }
+            }
+        )
+    }
     // Observe weather Response
     LaunchedEffect(key1 = weatherState) {
         when (val state = weatherState) {
@@ -94,20 +112,31 @@ fun WeatherScreen(
                         fontSize = 20.sp,
                         fontFamily = AppFont.MontserratFont,
                         fontWeight = FontWeight.Bold,
+                        modifier = Modifier.clickable {
+                            showSheet = true
+                        },
+                        color = DarkBlue,
+                        style = TextStyle(
+                            fontFeatureSettings = " smcp"
+                        )
                     )
                     Spacer(modifier = Modifier.width(6.dp))
                     Icon(
                         imageVector = Icons.Default.LocationOn,
-                        contentDescription = "Location"
+                        contentDescription = "Location",
+                        modifier = Modifier.clickable {
+                            showSheet = true
+                        }
                     )
                 }
-                Spacer(modifier = Modifier.height(54.dp))
-
-                Row (
-                    modifier = Modifier.fillMaxWidth().padding(horizontal = 24.dp),
+                Spacer(modifier = Modifier.height(60.dp))
+                Row(
+                    modifier = Modifier
+                        .fillMaxWidth()
+                        .padding(horizontal = 24.dp),
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
-                ){
+                ) {
                     Text(
                         text = "${weather.main?.temp?.roundToInt()}",
                         textAlign = TextAlign.Center,
@@ -139,7 +168,7 @@ fun WeatherScreen(
                 Spacer(modifier = Modifier.height(16.dp))
                 if (weather.weather.isNotEmpty()) {
                     Text(
-                        text = weather.weather[0].description?:"",
+                        text = weather.weather[0].description ?: "",
                         fontSize = 18.sp,
                         color = LightBlue,
                         fontFamily = AppFont.MontserratFont,
@@ -151,7 +180,11 @@ fun WeatherScreen(
                 }
                 Spacer(modifier = Modifier.height(24.dp))
                 Text(
-                    text = "${roundDoubleToIntMin(weather.main?.tempMax?:0.0)}° / ${roundDoubleToIntMin(weather.main?.tempMin?:0.0)}° Feels like ${roundDoubleToIntMin(weather.main?.feelsLike?:0.0)}°",
+                    text = "${roundDoubleToIntMin(weather.main?.tempMax ?: 0.0)}° / ${
+                        roundDoubleToIntMin(
+                            weather.main?.tempMin ?: 0.0
+                        )
+                    }° Feels like ${roundDoubleToIntMin(weather.main?.feelsLike ?: 0.0)}°",
                     fontSize = 18.sp,
                     color = DarkBlue,
                     fontFamily = AppFont.MontserratFont,

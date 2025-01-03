@@ -24,8 +24,6 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.weatherapp.core.ui.theme.AppFont
 import com.weatherapp.core.ui.theme.LightBlue
-import com.weatherapp.core.ui.theme.StrokeColor
-import com.weatherapp.core.ui.theme.TextColor
 
 
 @Composable
@@ -83,7 +81,7 @@ fun DefaultTextField(
                 else {
                     if (!focusState) hint else ""
                 },
-                color = StrokeColor, fontFamily = AppFont.MontserratFont,
+                color = Color.Black, fontFamily = AppFont.MontserratFont,
                 fontSize = fontSize.sp
             )
         },
@@ -92,10 +90,10 @@ fun DefaultTextField(
             fontFamily = AppFont.MontserratFont
         ),
         colors = OutlinedTextFieldDefaults.colors(
-            focusedTextColor = TextColor,
-            unfocusedTextColor = TextColor,
+            focusedTextColor = Color.Black,
+            unfocusedTextColor = Color.Black,
             focusedBorderColor = LightBlue,
-            unfocusedBorderColor = StrokeColor,
+            unfocusedBorderColor = LightBlue,
             unfocusedContainerColor = backgroundColor,
             focusedContainerColor = focusedBackgroundColor
         ),

@@ -6,6 +6,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.weatherapp.core.AppError
 import com.weatherapp.core.Resource
 import com.weatherapp.domain.models.City
 import com.weatherapp.domain.models.CurrentWeatherResponse
@@ -40,6 +41,7 @@ constructor(
     }
 
     private fun getLocalCity() = viewModelScope.launch {
+        _weatherFlow.emit(Resource.Loading())
         getLocalCityUseCase().collect {
             if (it.isNotEmpty()) {
                 cityNameFromLocal = it.last().name
@@ -48,7 +50,7 @@ constructor(
         }
     }
 
-    fun insertCity(city: City) = viewModelScope.launch {
+    private fun insertCity(city: City) = viewModelScope.launch {
         try {
             insertLocalCityUseCase(city)
         } catch (e: Exception) {
@@ -61,5 +63,14 @@ constructor(
     private fun getCurrentWeather(cityName: String) = viewModelScope.launch {
         _weatherFlow.emit(Resource.Loading())
         _weatherFlow.emit(weatherUseCase(city = cityName))
+    }
+
+    fun isCityAvailable(cityName: String) = viewModelScope.launch {
+        val response = weatherUseCase(city = cityName)
+        if (response is Resource.Success) {
+            insertCity(City(name = cityName))
+        } else {
+            _weatherFlow.emit(Resource.Error(AppError.ApiError("There is no city with this name")))
+        }
     }
 }
