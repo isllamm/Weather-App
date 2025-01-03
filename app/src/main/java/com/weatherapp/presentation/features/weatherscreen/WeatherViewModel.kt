@@ -37,6 +37,8 @@ constructor(
 
     init {
         getLocalCity()
+        getCurrentWeather(cityNameFromLocal.ifEmpty { "Cairo" })
+
     }
 
     private fun getLocalCity() = viewModelScope.launch {

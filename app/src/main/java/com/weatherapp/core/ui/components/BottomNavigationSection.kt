@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomNavigation
 import androidx.compose.material.BottomNavigationItem
 import androidx.compose.material.icons.Icons
@@ -16,6 +17,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.Gray
@@ -30,6 +32,8 @@ import androidx.navigation.NavController
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.weatherapp.R
 import com.weatherapp.core.ui.theme.AppFont
+import com.weatherapp.core.ui.theme.BottomNavColor
+import com.weatherapp.core.ui.theme.DarkBlue
 import com.weatherapp.presentation.navgraph.Routes
 
 @Composable
@@ -52,14 +56,16 @@ fun BottomNavigationSection(
         ),
     )
     BottomNavigation(
-        backgroundColor = White,
+        backgroundColor = BottomNavColor,
         elevation = 5.dp,
         modifier = modifier
+            .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
             .fillMaxWidth()
     ) {
         Column(
             modifier = Modifier
-                .background(Color.Transparent)
+                .background(BottomNavColor)
+                .clip(RoundedCornerShape(topStart = 16.dp, topEnd = 16.dp))
                 .fillMaxWidth(),
         ) {
 
@@ -88,7 +94,7 @@ fun BottomNavigationSection(
                                     modifier = Modifier.size(32.dp),
                                     imageVector = bottomNavItem.icon,
                                     contentDescription = bottomNavItem.title,
-                                    tint = if (selected) Black else Gray
+                                    tint = if (selected) DarkBlue else Gray
                                 )
                                 Text(
                                     text = bottomNavItem.title,
@@ -96,7 +102,7 @@ fun BottomNavigationSection(
                                     fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal,
                                     textAlign = TextAlign.Center,
                                     fontFamily = AppFont.MontserratFont,
-                                    color = if (selected) Black else Gray
+                                    color = if (selected) DarkBlue else Gray
                                 )
                             }
                         },
