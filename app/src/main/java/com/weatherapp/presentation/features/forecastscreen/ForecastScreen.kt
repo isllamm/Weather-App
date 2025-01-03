@@ -34,6 +34,7 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.timestampformatter.TimestampFormatter
 import com.weatherapp.core.ToastUtils
 import com.weatherapp.core.roundDoubleToIntMin
 import com.weatherapp.core.ui.theme.AppFont
@@ -134,7 +135,7 @@ fun ForecastCard(
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             Text(
-                text = getDayNameFromTimestamp(forecast.dt!!.toLong()).ifEmpty { "Sunday" },
+                text = TimestampFormatter.getDayNameFromTimestamp(forecast.dt!!.toLong()).ifEmpty { "Sunday" },
                 fontFamily = AppFont.MontserratFont,
                 fontWeight = FontWeight.Medium,
                 fontSize = 13.sp,
@@ -142,7 +143,7 @@ fun ForecastCard(
                 modifier = Modifier.weight(1f)
             )
             Text(
-                text = convertTimestampToString(forecast.dt!!.toLong()).ifEmpty { "Sunday" },
+                text = TimestampFormatter.convertTimestampToString(forecast.dt!!.toLong()).ifEmpty { "1 am" },
                 fontFamily = AppFont.MontserratFont,
                 fontWeight = FontWeight.Normal,
                 fontSize = 11.sp,
@@ -173,19 +174,4 @@ fun ForecastCard(
             }
         }
     }
-}
-
-@RequiresApi(Build.VERSION_CODES.O)
-fun getDayNameFromTimestamp(timestamp: Long): String {
-    val instant = Instant.ofEpochSecond(timestamp)
-    val formatter = DateTimeFormatter.ofPattern("EEEE") // EEEE for full day name (e.g., Monday)
-    return instant.atZone(ZoneId.systemDefault()).format(formatter)
-}
-
-fun convertTimestampToString(timestamp: Long): String {
-    val date = Date(timestamp * 1000) // Convert seconds to milliseconds if needed
-    val dateFormat = SimpleDateFormat("h a", Locale.getDefault())
-    val formattedDate = dateFormat.format(date)
-
-    return formattedDate
 }

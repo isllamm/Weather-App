@@ -96,7 +96,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
 
-
+    implementation(libs.timestampformatter)
     // Testing Dependencies
     testImplementation(libs.junit)
     testImplementation(libs.kotlin.test)

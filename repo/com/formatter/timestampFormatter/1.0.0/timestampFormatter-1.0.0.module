@@ -1,0 +1,137 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.formatter",
+    "module": "timestampFormatter",
+    "version": "1.0.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.9"
+    }
+  },
+  "variants": [
+    {
+      "name": "releaseVariantReleaseApiPublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-api"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.0.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "timestampFormatter-1.0.0.aar",
+          "url": "timestampFormatter-1.0.0.aar",
+          "size": 2368,
+          "sha512": "3aeed0dab2e9551e6f171f4f90e42aaa831a975006848d78e4969c31bf614a3aba63eaf982480b0fde455a1824598a1da60bf4c31e15f0e124963701b5be4c74",
+          "sha256": "6be2095a4bff6a7bbf0b9eb48b1486023d5fc07faf27f19a1959820b645b9aef",
+          "sha1": "2ac789b1034f63bdde83df01ba5156afcc41bd59",
+          "md5": "76b43a3e6187b2aa113c7dc8052375fa"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseRuntimePublication",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.libraryelements": "aar",
+        "org.gradle.usage": "java-runtime"
+      },
+      "dependencies": [
+        {
+          "group": "androidx.core",
+          "module": "core-ktx",
+          "version": {
+            "requires": "1.13.1"
+          }
+        },
+        {
+          "group": "androidx.appcompat",
+          "module": "appcompat",
+          "version": {
+            "requires": "1.7.0"
+          }
+        },
+        {
+          "group": "com.google.android.material",
+          "module": "material",
+          "version": {
+            "requires": "1.12.0"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.0.0"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "timestampFormatter-1.0.0.aar",
+          "url": "timestampFormatter-1.0.0.aar",
+          "size": 2368,
+          "sha512": "3aeed0dab2e9551e6f171f4f90e42aaa831a975006848d78e4969c31bf614a3aba63eaf982480b0fde455a1824598a1da60bf4c31e15f0e124963701b5be4c74",
+          "sha256": "6be2095a4bff6a7bbf0b9eb48b1486023d5fc07faf27f19a1959820b645b9aef",
+          "sha1": "2ac789b1034f63bdde83df01ba5156afcc41bd59",
+          "md5": "76b43a3e6187b2aa113c7dc8052375fa"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseSourcePublication",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "sources",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "timestampFormatter-1.0.0-sources.jar",
+          "url": "timestampFormatter-1.0.0-sources.jar",
+          "size": 1055,
+          "sha512": "6819e2c1f0378ccf966c788564926526727c3ea65d103cceef8003e769c3a0cbfaed5ed090074edbdc69d99cba60d391aabd6d49a31883047e3550d1e686e560",
+          "sha256": "013ae4c105afd3fc70bf330bab5c134a257d25fa2943c6c43ee7e890bab56537",
+          "sha1": "b93dc7e1af629be4366944aa2fba95c77aba0956",
+          "md5": "3654535698046a3202141149929ed75e"
+        }
+      ]
+    },
+    {
+      "name": "releaseVariantReleaseJavaDocPublication",
+      "attributes": {
+        "org.gradle.category": "documentation",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.docstype": "javadoc",
+        "org.gradle.usage": "java-runtime"
+      },
+      "files": [
+        {
+          "name": "timestampFormatter-1.0.0-javadoc.jar",
+          "url": "timestampFormatter-1.0.0-javadoc.jar",
+          "size": 261705,
+          "sha512": "b0c71fc50a80562c56cebeb3e13f3a9c5673b011ca69a350fc5daeee05f5bdac0b47cbdcee15c0f9b23102138716866321fccd27a4ad3469299b97dad08e75d6",
+          "sha256": "cec2347fb0ce6b5b2a79be1dbb05adab8b0dbd11f7fe807fc48d01a1718539d0",
+          "sha1": "79109ac6d19ebe661b6a35168949fc109d3864a1",
+          "md5": "bb9292c8f09e0068967a44ec7d2f4e39"
+        }
+      ]
+    }
+  ]
+}
