@@ -10,8 +10,8 @@ import kotlinx.coroutines.flow.Flow
 @Dao
 interface CitiesDao {
     @Query("SELECT * FROM city")
-    fun getAllAddresses(): Flow<List<City>>
+    fun getCity(): Flow<List<City>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun insertAddress(city: City)
+    suspend fun insertCity(city: City)
 }
