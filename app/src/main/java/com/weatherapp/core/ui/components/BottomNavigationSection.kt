@@ -20,8 +20,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Black
-import androidx.compose.ui.graphics.Color.Companion.Gray
+import androidx.compose.ui.graphics.Color.Companion.DarkGray
 import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.res.vectorResource
 import androidx.compose.ui.text.font.FontWeight
@@ -82,8 +81,6 @@ fun BottomNavigationSection(
                         onClick = {
                             if (!selected) onItemSelected(bottomNavItem)
                         },
-                        selectedContentColor = Black,
-                        unselectedContentColor = Gray,
                         icon = {
                             Column(
                                 horizontalAlignment = Alignment.CenterHorizontally
@@ -92,7 +89,7 @@ fun BottomNavigationSection(
                                     modifier = Modifier.size(32.dp),
                                     imageVector = bottomNavItem.icon,
                                     contentDescription = bottomNavItem.title,
-                                    tint = if (selected) MaterialTheme.colorScheme.secondary else Gray
+                                    tint = if (selected) MaterialTheme.colorScheme.secondary else DarkGray
                                 )
                                 Text(
                                     text = bottomNavItem.title,
@@ -100,7 +97,7 @@ fun BottomNavigationSection(
                                     fontWeight = if (selected) FontWeight.SemiBold else FontWeight.Normal,
                                     textAlign = TextAlign.Center,
                                     fontFamily = AppFont.MontserratFont,
-                                    color = if (selected) MaterialTheme.colorScheme.secondary else Gray
+                                    color = if (selected) MaterialTheme.colorScheme.secondary else DarkGray
                                 )
                             }
                         },
