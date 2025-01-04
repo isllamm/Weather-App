@@ -17,6 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.LocationOn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -27,7 +28,6 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.text.TextStyle
@@ -38,20 +38,19 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import coil.compose.AsyncImage
 import coil.request.ImageRequest
+import com.weatherapp.core.PrefsHelper
 import com.weatherapp.core.Resource
 import com.weatherapp.core.ToastUtils
 import com.weatherapp.core.roundDoubleToIntMin
 import com.weatherapp.core.ui.theme.AppFont
-import com.weatherapp.core.ui.theme.DarkBlue
-import com.weatherapp.core.ui.theme.LightBlue
-import com.weatherapp.core.ui.theme.backgroundColor
 import com.weatherapp.domain.models.CurrentWeatherResponse
 import com.weatherapp.presentation.features.addcitybottomsheet.AddCityBottomSheet
 import kotlin.math.roundToInt
 
 @Composable
 fun WeatherScreen(
-    viewModel: WeatherViewModel = hiltViewModel()
+    viewModel: WeatherViewModel = hiltViewModel(),
+    onToggleTheme: () -> Unit,
 ) {
     val context = LocalContext.current
     var isLoading by remember { mutableStateOf(false) }
@@ -96,7 +95,7 @@ fun WeatherScreen(
         Column(
             modifier = Modifier
                 .fillMaxSize()
-                .background(backgroundColor),
+                .background(MaterialTheme.colorScheme.background),
             horizontalAlignment = Alignment.CenterHorizontally,
         ) {
             if (!isLoading) {
@@ -107,6 +106,7 @@ fun WeatherScreen(
                     verticalAlignment = Alignment.CenterVertically,
                     horizontalArrangement = Arrangement.Center
                 ) {
+                    Spacer(modifier = Modifier.weight(1f))
                     Text(
                         text = viewModel.cityNameFromLocal.ifEmpty { "Cairo" },
                         fontSize = 20.sp,
@@ -115,7 +115,7 @@ fun WeatherScreen(
                         modifier = Modifier.clickable {
                             showSheet = true
                         },
-                        color = DarkBlue,
+                        color = MaterialTheme.colorScheme.secondary,
                         style = TextStyle(
                             fontFeatureSettings = " smcp"
                         )
@@ -124,10 +124,33 @@ fun WeatherScreen(
                     Icon(
                         imageVector = Icons.Default.LocationOn,
                         contentDescription = "Location",
+                        tint = MaterialTheme.colorScheme.secondary,
                         modifier = Modifier.clickable {
                             showSheet = true
                         }
                     )
+                    Spacer(modifier = Modifier.weight(1f))
+                    if (PrefsHelper.isDarkMode()) {
+                        Text(
+                            "☀️",
+                            fontSize = 32.sp,
+                            modifier = Modifier.clickable {
+                                PrefsHelper.setIsDarkMode(false)
+                                onToggleTheme()
+                            })
+                    }
+                    if (!PrefsHelper.isDarkMode()) {
+                        Text(
+                            "🌙",
+                            fontSize = 32.sp,
+                            modifier = Modifier.clickable {
+                                PrefsHelper.setIsDarkMode(true)
+                                onToggleTheme()
+                            })
+                    }
+
+                    Spacer(modifier = Modifier.width(12.dp))
+
                 }
                 Spacer(modifier = Modifier.height(60.dp))
                 Row(
@@ -143,7 +166,7 @@ fun WeatherScreen(
                         fontFamily = AppFont.MontserratFont,
                         fontWeight = FontWeight.Bold,
                         fontSize = 60.sp,
-                        color = Color.Black
+                        color = MaterialTheme.colorScheme.secondary
                     )
                     Text(
                         text = "\u00B0",
@@ -151,7 +174,7 @@ fun WeatherScreen(
                         fontFamily = AppFont.MontserratFont,
                         fontWeight = FontWeight.Medium,
                         fontSize = 60.sp,
-                        color = Color.Black
+                        color = MaterialTheme.colorScheme.secondary
                     )
                     if (weather.weather.isNotEmpty()) {
                         AsyncImage(
@@ -170,7 +193,7 @@ fun WeatherScreen(
                     Text(
                         text = weather.weather[0].description ?: "",
                         fontSize = 18.sp,
-                        color = LightBlue,
+                        color = MaterialTheme.colorScheme.primary,
                         fontFamily = AppFont.MontserratFont,
                         fontWeight = FontWeight.Medium,
                         style = TextStyle(
@@ -186,7 +209,7 @@ fun WeatherScreen(
                         )
                     }° Feels like ${roundDoubleToIntMin(weather.main?.feelsLike ?: 0.0)}°",
                     fontSize = 18.sp,
-                    color = DarkBlue,
+                    color = MaterialTheme.colorScheme.secondary,
                     fontFamily = AppFont.MontserratFont,
                     fontWeight = FontWeight.Normal,
                 )

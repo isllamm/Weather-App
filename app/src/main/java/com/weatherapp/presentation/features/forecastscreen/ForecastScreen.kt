@@ -16,6 +16,7 @@ import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.HorizontalDivider
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
@@ -38,16 +39,8 @@ import com.timestampformatter.TimestampFormatter
 import com.weatherapp.core.ToastUtils
 import com.weatherapp.core.roundDoubleToIntMin
 import com.weatherapp.core.ui.theme.AppFont
-import com.weatherapp.core.ui.theme.DarkBlue
-import com.weatherapp.core.ui.theme.backgroundColor
 import com.weatherapp.domain.models.ForecastResponse
 import com.weatherapp.domain.models.List
-import java.text.SimpleDateFormat
-import java.time.Instant
-import java.time.ZoneId
-import java.time.format.DateTimeFormatter
-import java.util.Date
-import java.util.Locale
 
 
 @RequiresApi(Build.VERSION_CODES.O)
@@ -68,6 +61,7 @@ fun ForecastScreen(
             isLoading = false
             forecast = (state as ForecastState.Success).forecast
         }
+
         is ForecastState.Error -> {
             val errorMessage = (state as ForecastState.Error).message
             isLoading = false
@@ -77,14 +71,14 @@ fun ForecastScreen(
     Box(
         modifier = Modifier
             .fillMaxSize()
-            .background(backgroundColor),
+            .background(MaterialTheme.colorScheme.background),
         contentAlignment = Alignment.Center
     ) {
         if (!isLoading) {
             LazyColumn(
                 modifier = Modifier
                     .fillMaxSize()
-                    .background(backgroundColor),
+                    .background(MaterialTheme.colorScheme.background),
             ) {
                 item {
                     Row(
@@ -97,6 +91,7 @@ fun ForecastScreen(
                         Text(
                             text = "Forecast",
                             fontSize = 20.sp,
+                            color = MaterialTheme.colorScheme.secondary,
                             fontFamily = AppFont.MontserratFont,
                             fontWeight = FontWeight.Bold,
                         )
@@ -135,19 +130,21 @@ fun ForecastCard(
             horizontalArrangement = Arrangement.SpaceEvenly
         ) {
             Text(
-                text = TimestampFormatter.getDayNameFromTimestamp(forecast.dt!!.toLong()).ifEmpty { "Sunday" },
+                text = TimestampFormatter.getDayNameFromTimestamp(forecast.dt!!.toLong())
+                    .ifEmpty { "Sunday" },
                 fontFamily = AppFont.MontserratFont,
                 fontWeight = FontWeight.Medium,
                 fontSize = 13.sp,
-                color = DarkBlue,
+                color = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.weight(1f)
             )
             Text(
-                text = TimestampFormatter.convertTimestampToString(forecast.dt!!.toLong()).ifEmpty { "1 am" },
+                text = TimestampFormatter.convertTimestampToString(forecast.dt!!.toLong())
+                    .ifEmpty { "1 am" },
                 fontFamily = AppFont.MontserratFont,
                 fontWeight = FontWeight.Normal,
                 fontSize = 11.sp,
-                color = DarkBlue,
+                color = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.weight(1f)
             )
             Text(
@@ -155,7 +152,7 @@ fun ForecastCard(
                 fontFamily = AppFont.MontserratFont,
                 fontWeight = FontWeight.Medium,
                 fontSize = 16.sp,
-                color = DarkBlue,
+                color = MaterialTheme.colorScheme.secondary,
                 modifier = Modifier.weight(1f)
             )
 

@@ -15,12 +15,13 @@ import com.weatherapp.presentation.features.weatherscreen.WeatherScreen
 fun HomeNavGraph(
     navController: NavHostController,
     startDestination: String = Routes.WEATHER,
+    onToggleTheme: () -> Unit,
     onChangeTabBarStatus: (Boolean) -> Unit
 ) {
     NavHost(navController = navController, startDestination = startDestination) {
         composable(Routes.WEATHER) {
             onChangeTabBarStatus(true)
-            WeatherScreen()
+            WeatherScreen(onToggleTheme = onToggleTheme)
         }
         composable(Routes.FORECAST) {
             onChangeTabBarStatus(true)
